@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AddtocartmoduleModelStoreContainer" CdmEntityContainer="AddtocartmoduleEntities">
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="AddtocartmoduleModel.Book">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="Book_name" ColumnName="Book_name" />
+          <ScalarProperty Name="Book_author" ColumnName="Book_author" />
+          <ScalarProperty Name="Book_genre" ColumnName="Book_genre" />
+          <ScalarProperty Name="Book_price" ColumnName="Book_price" />
+          <ScalarProperty Name="Book_edition" ColumnName="Book_edition" />
+          <ScalarProperty Name="Book_img" ColumnName="Book_img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BTransactions">
+      <EntityTypeMapping TypeName="AddtocartmoduleModel.BTransaction">
+        <MappingFragment StoreEntitySet="BTransaction">
+          <ScalarProperty Name="Transaction_id" ColumnName="Transaction_id" />
+          <ScalarProperty Name="Transaction_bill" ColumnName="Transaction_bill" />
+          <ScalarProperty Name="Transaction_qty" ColumnName="Transaction_qty" />
+          <ScalarProperty Name="Transaction_date" ColumnName="Transaction_date" />
+          <ScalarProperty Name="Transaction_price" ColumnName="Transaction_price" />
+          <ScalarProperty Name="Book_id" ColumnName="Book_id" />
+          <ScalarProperty Name="in_id" ColumnName="in_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BUsers">
+      <EntityTypeMapping TypeName="AddtocartmoduleModel.BUser">
+        <MappingFragment StoreEntitySet="BUser">
+          <ScalarProperty Name="BUser_id" ColumnName="BUser_id" />
+          <ScalarProperty Name="BUser_name" ColumnName="BUser_name" />
+          <ScalarProperty Name="BUser_email" ColumnName="BUser_email" />
+          <ScalarProperty Name="BUser_password" ColumnName="BUser_password" />
+          <ScalarProperty Name="BUser_contactno" ColumnName="BUser_contactno" />
+          <ScalarProperty Name="BUser_Address" ColumnName="BUser_Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="AddtocartmoduleModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="in_id" ColumnName="in_id" />
+          <ScalarProperty Name="in_date" ColumnName="in_date" />
+          <ScalarProperty Name="in_totalbill" ColumnName="in_totalbill" />
+          <ScalarProperty Name="BUser_id" ColumnName="BUser_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AddtocartmoduleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Book_id" />
+    </Key>
+    <Property Name="Book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Book_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Book_author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Book_genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Book_price" Type="Int32" Nullable="false" />
+    <Property Name="Book_edition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Book_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BTransactions" Relationship="Self.FK__BTransact__Book___239E4DCF" FromRole="Books" ToRole="BTransaction" />
+  </EntityType>
+  <EntityType Name="BTransaction">
+    <Key>
+      <PropertyRef Name="Transaction_id" />
+    </Key>
+    <Property Name="Transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Transaction_bill" Type="Int32" />
+    <Property Name="Transaction_qty" Type="Int32" />
+    <Property Name="Transaction_date" Type="DateTime" Precision="0" />
+    <Property Name="Transaction_price" Type="Int32" />
+    <Property Name="Book_id" Type="Int32" />
+    <Property Name="in_id" Type="Int32" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__BTransact__Book___239E4DCF" FromRole="BTransaction" ToRole="Books" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK__BTransact__in_id__24927208" FromRole="BTransaction" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="BUser">
+    <Key>
+      <PropertyRef Name="BUser_id" />
+    </Key>
+    <Property Name="BUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BUser_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BUser_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BUser_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BUser_contactno" Type="Int32" Nullable="false" />
+    <Property Name="BUser_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__BUser_i__173876EA" FromRole="BUser" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="in_id" />
+    </Key>
+    <Property Name="in_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="in_date" Type="DateTime" Precision="0" />
+    <Property Name="in_totalbill" Type="Double" />
+    <Property Name="BUser_id" Type="Int32" />
+    <NavigationProperty Name="BTransactions" Relationship="Self.FK__BTransact__in_id__24927208" FromRole="Invoice" ToRole="BTransaction" />
+    <NavigationProperty Name="BUser" Relationship="Self.FK__Invoice__BUser_i__173876EA" FromRole="Invoice" ToRole="BUser" />
+  </EntityType>
+  <Association Name="FK__BTransact__Book___239E4DCF">
+    <End Role="Books" Type="Self.Book" Multiplicity="0..1" />
+    <End Role="BTransaction" Type="Self.BTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="BTransaction">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BTransact__in_id__24927208">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="BTransaction" Type="Self.BTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="in_id" />
+      </Principal>
+      <Dependent Role="BTransaction">
+        <PropertyRef Name="in_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__BUser_i__173876EA">
+    <End Role="BUser" Type="Self.BUser" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BUser">
+        <PropertyRef Name="BUser_id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="BUser_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AddtocartmoduleEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="BTransactions" EntityType="Self.BTransaction" />
+    <EntitySet Name="BUsers" EntityType="Self.BUser" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <AssociationSet Name="FK__BTransact__Book___239E4DCF" Association="Self.FK__BTransact__Book___239E4DCF">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="BTransaction" EntitySet="BTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BTransact__in_id__24927208" Association="Self.FK__BTransact__in_id__24927208">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="BTransaction" EntitySet="BTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__BUser_i__173876EA" Association="Self.FK__Invoice__BUser_i__173876EA">
+      <End Role="BUser" EntitySet="BUsers" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

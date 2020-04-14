@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AddtocartmoduleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="Book_id" />
+    </Key>
+    <Property Name="Book_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Book_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Book_author" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Book_genre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Book_price" Type="int" Nullable="false" />
+    <Property Name="Book_edition" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Book_img" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="BTransaction">
+    <Key>
+      <PropertyRef Name="Transaction_id" />
+    </Key>
+    <Property Name="Transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Transaction_bill" Type="int" />
+    <Property Name="Transaction_qty" Type="int" />
+    <Property Name="Transaction_date" Type="date" />
+    <Property Name="Transaction_price" Type="int" />
+    <Property Name="Book_id" Type="int" />
+    <Property Name="in_id" Type="int" />
+  </EntityType>
+  <EntityType Name="BUser">
+    <Key>
+      <PropertyRef Name="BUser_id" />
+    </Key>
+    <Property Name="BUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BUser_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BUser_email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BUser_password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BUser_contactno" Type="int" Nullable="false" />
+    <Property Name="BUser_Address" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="in_id" />
+    </Key>
+    <Property Name="in_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="in_date" Type="date" />
+    <Property Name="in_totalbill" Type="float" />
+    <Property Name="BUser_id" Type="int" />
+  </EntityType>
+  <Association Name="FK__BTransact__Book___239E4DCF">
+    <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
+    <End Role="BTransaction" Type="Self.BTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="Book_id" />
+      </Principal>
+      <Dependent Role="BTransaction">
+        <PropertyRef Name="Book_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BTransact__in_id__24927208">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="BTransaction" Type="Self.BTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="in_id" />
+      </Principal>
+      <Dependent Role="BTransaction">
+        <PropertyRef Name="in_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__BUser_i__173876EA">
+    <End Role="BUser" Type="Self.BUser" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BUser">
+        <PropertyRef Name="BUser_id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="BUser_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AddtocartmoduleModelStoreContainer">
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BTransaction" EntityType="Self.BTransaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BUser" EntityType="Self.BUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BTransact__Book___239E4DCF" Association="Self.FK__BTransact__Book___239E4DCF">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="BTransaction" EntitySet="BTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BTransact__in_id__24927208" Association="Self.FK__BTransact__in_id__24927208">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="BTransaction" EntitySet="BTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__BUser_i__173876EA" Association="Self.FK__Invoice__BUser_i__173876EA">
+      <End Role="BUser" EntitySet="BUser" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

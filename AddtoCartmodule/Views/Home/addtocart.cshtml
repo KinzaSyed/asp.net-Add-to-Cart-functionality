@@ -1,0 +1,35 @@
+﻿@model AddtoCartmodule.Models.Book
+@{
+    ViewBag.Title = "addtocart";
+}
+
+@using (@Html.BeginForm())
+{
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+
+
+            <img style="min-height:200px;width:200px;" src="@Url.Content(Model.Book_img)" />
+
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <h1>Book Name: @Model.Book_name</h1>
+            <h2>Price: @Model.Book_price</h2>
+            <h3>Author: @Model.Book_author</h3>
+            <input type="number" name="qty" value="1" id="qty" min="1" max="10" />
+            <input type="submit" value="Submit" class="btn btn-default" />
+
+
+
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+}
+

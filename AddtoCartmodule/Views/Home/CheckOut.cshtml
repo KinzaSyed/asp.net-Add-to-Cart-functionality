@@ -1,0 +1,71 @@
+﻿@model AddtoCartmodule.Models.Book
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<h2>CheckOut</h2>
+@if (TempData["cart"] != null)
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Bill</th>
+
+
+
+            </tr>
+
+
+
+        </thead>
+        <tbody>
+            @foreach (var item in TempData["cart"] as List<AddtoCartmodule.Models.cart>)
+            {
+            <tr>
+                <td>@item.Book_id</td>
+                <td>@item.Book_name</td>
+                <td>@item.Book_price</td>
+                <td>@item.qty</td>
+                <td>@item.bill</td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("remove",new { id = @item.Book_id})">&#10008</a>
+                </td>
+
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>@TempData["totalprice"]</td>
+
+            </tr>
+        </tfoot>
+
+
+
+
+
+
+
+
+
+    </table>
+}
+else
+{
+
+    <h2 style="color:red">Cart is Emplty....</h2>
+    @Html.ActionLink("Go Back", "Index", "Home")
+}
+@if (TempData["cart"] != null)
+{
+    using (Html.BeginForm())
+    {
+        <input type="submit" value="Shop now" class="btn btn-primary"/>
+    }
+}
